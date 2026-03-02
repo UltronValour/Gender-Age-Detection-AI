@@ -1,0 +1,11 @@
+venv/
+__pycache__/
+*.pyc
+models/
+logs/
+outputs/
+*.caffemodel
+*.pb
+*.pbtxt
+.DS_Store
+.env
