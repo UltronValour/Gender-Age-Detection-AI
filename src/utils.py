@@ -3,11 +3,15 @@ import os
 import math
 import numpy as np
 
-def load_models(model_dir="models"):
+def load_models(model_dir=None):
     """
     Load the pre-trained face, age, and gender networks using OpenCV DNN.
-    Assumes relative paths to the model_dir.
+    Resolves absolute path dynamically for Streamlit Cloud execution.
     """
+    if model_dir is None:
+        # Construct absolute path to the models directory at the root level
+        model_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "models")
+        
     # Face detection models
     face_proto = os.path.join(model_dir, "opencv_face_detector.pbtxt")
     face_model = os.path.join(model_dir, "opencv_face_detector_uint8.pb")
