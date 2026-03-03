@@ -40,11 +40,6 @@ def main():
             font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
         
-        /* Inject a premium off-white background color */
-        .stApp {
-            background-color: #F8FAFC !important;
-        }
-        
         /* Clean up Streamlit defaults */
         #MainMenu {visibility: hidden;}
         footer {visibility: hidden;}
@@ -78,28 +73,26 @@ def main():
         
         /* Style native Streamlit Metrics as beautiful Cards */
         div[data-testid="metric-container"] {
-            background-color: #FFFFFF;
+            background-color: rgba(255, 255, 255, 0.05);
             border-radius: 12px;
             padding: 1.5rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-            border: 1px solid #E2E8F0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(128, 128, 128, 0.2);
             text-align: center;
             transition: transform 0.2s ease;
         }
         div[data-testid="metric-container"]:hover {
             transform: translateY(-2px);
-            border-color: #93C5FD;
         }
         
         div[data-testid="stMetricValue"] {
             font-size: 2.2rem !important;
             font-weight: 700 !important;
-            color: #2563EB;
+            color: #3B82F6 !important;
         }
         
         div[data-testid="stMetricLabel"] {
             font-size: 1rem !important;
-            color: #64748B !important;
             font-weight: 600 !important;
             text-transform: uppercase;
             letter-spacing: 0.05em;
@@ -108,14 +101,29 @@ def main():
         /* Prettify DataFrame default rendering */
         div[data-testid="stDataFrame"] > div {
             border-radius: 12px !important;
-            border: 1px solid #E2E8F0 !important;
+            border: 1px solid rgba(128, 128, 128, 0.2) !important;
             overflow: hidden !important;
         }
         
-        /* Sidebar styling additions */
-        section[data-testid="stSidebar"] {
-            background-color: #FFFFFF !important;
-            border-right: 1px solid #E2E8F0;
+        /* Mobile specific CSS to fix squished layouts */
+        @media screen and (max-width: 768px) {
+            h1.main-title {
+                font-size: 2.5rem !important;
+            }
+            .subtitle-text {
+                font-size: 1.1rem !important;
+                margin-bottom: 2rem !important;
+            }
+            div[data-testid="metric-container"] {
+                padding: 1rem;
+            }
+            div[data-testid="stMetricValue"] {
+                font-size: 1.6rem !important;
+            }
+            div[data-testid="stMetricLabel"] {
+                font-size: 0.7rem !important;
+                white-space: nowrap !important;
+            }
         }
         </style>
     """, unsafe_allow_html=True)
@@ -171,7 +179,7 @@ def main():
         st.markdown("---")
         st.subheader("ℹ️ Model Info")
         st.markdown(f"""
-        <div style='background-color: #F8FAFC; padding: 15px; border-radius: 8px; font-size: 0.9em; color: #475569; margin-bottom: 15px; border: 1px solid #E2E8F0;'>
+        <div style='background-color: rgba(128, 128, 128, 0.1); padding: 15px; border-radius: 8px; font-size: 0.9em; margin-bottom: 15px; border: 1px solid rgba(128, 128, 128, 0.2);'>
             <b>Model:</b> Adience Caffe<br>
             <b>Face Detector:</b> OpenCV DNN<br>
             <b>Alignment:</b> {'ON' if enable_alignment else 'OFF'}<br>
