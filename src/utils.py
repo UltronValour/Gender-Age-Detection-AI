@@ -13,8 +13,8 @@ def load_models(model_dir=None):
         model_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "models")
         
     # Face detection models
-    face_proto = os.path.join(model_dir, "opencv_face_detector.pbtxt")
-    face_model = os.path.join(model_dir, "opencv_face_detector_uint8.pb")
+    face_proto = os.path.join(model_dir, "deploy.prototxt")
+    face_model = os.path.join(model_dir, "res10_300x300_ssd_iter_140000.caffemodel")
     
     # Age prediction models
     age_proto = os.path.join(model_dir, "age_deploy.prototxt")
@@ -25,7 +25,7 @@ def load_models(model_dir=None):
     gender_model = os.path.join(model_dir, "gender_net.caffemodel")
     
     # Load networks
-    face_net = cv2.dnn.readNet(face_model, face_proto)
+    face_net = cv2.dnn.readNetFromCaffe(face_proto, face_model)
     age_net = cv2.dnn.readNet(age_model, age_proto)
     gender_net = cv2.dnn.readNet(gender_model, gender_proto)
     
@@ -40,7 +40,7 @@ def detect_faces(face_net, frame, conf_threshold=0.7):
     frame_width = frame.shape[1]
     
     # Create a blob from the frame (standard size for opencv face detector: 300x300)
-    blob = cv2.dnn.blobFromImage(frame, 1.0, (300, 300), [104, 117, 123], True, False)
+    blob = cv2.dnn.blobFromImage(frame, 1.0, (300, 300), (104.0, 177.0, 123.0))
     
     # Forward pass
     face_net.setInput(blob)
