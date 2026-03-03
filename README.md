@@ -4,7 +4,7 @@
 This is a real-time computer vision system that detects faces and predicts gender and age using OpenCV DNN, MediaPipe face alignment, and Caffe models, alongside a reactive Streamlit analytics dashboard.
 
 # 🚀 Live Demo
-[Gender & Age Detection AI Dashboard](https://ultronvalour-gender-age-detection-ai-app-ngbm2m.streamlit.app/)
+[Gender & Age Detection AI Dashboard](https://gender-age-detection-ai.streamlit.app/)
 
 # 🧠 Features
 - Real-time face detection
