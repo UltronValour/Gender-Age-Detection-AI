@@ -30,76 +30,55 @@ def clear_logs():
 
 def main():
     # 1. PAGE CONFIG
-    st.set_page_config(page_title="Gender & Age Detection AI", page_icon="📊", layout="wide")
+    st.set_page_config(page_title="Gender & Age Detection AI", page_icon="🤖", layout="wide")
     
-    # 8. CUSTOM CSS STYLING
+    # 2. CUSTOM SaaS CSS STYLING
     st.markdown("""
         <style>
-        /* Base typography and background */
+        /* Base typography and dark theme */
         html, body, [class*="css"] {
             font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
         
-        /* Inject a premium off-white background color */
+        /* Background */
         .stApp {
-            background-color: #F8FAFC !important;
+            background-color: #0f172a !important;
         }
         
         /* Clean up Streamlit defaults */
         #MainMenu {visibility: hidden;}
         footer {visibility: hidden;}
         
-        /* Constrain layout to prevent extreme stretching on ultra-wide screens */
-        .block-container {
-            padding-top: 2rem !important;
-            padding-bottom: 3rem !important;
-            max-width: 1400px !important; 
-        }
-        
-        /* Header styling with gradient */
-        h1.main-title {
-            background: linear-gradient(90deg, #1E3A8A 0%, #3B82F6 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-size: 3.8rem !important;
-            font-weight: 800 !important;
-            text-align: center;
-            margin-bottom: 0rem !important;
-            padding-bottom: 0.5rem !important;
-        }
-        
-        .subtitle-text {
-            text-align: center;
-            font-size: 1.35rem;
-            color: #64748B;
-            margin-bottom: 3.5rem;
-            font-weight: 500;
+        /* Sidebar styling */
+        section[data-testid="stSidebar"] {
+            background-color: #1e293b !important;
+            border-right: 1px solid #334155 !important;
         }
         
         /* Style native Streamlit Metrics as beautiful Cards */
         div[data-testid="metric-container"] {
-            background-color: #FFFFFF;
-            border-radius: 12px;
+            background-color: #1e293b;
+            border-radius: 16px;
             padding: 1.5rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-            border: 1px solid #E2E8F0;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+            border: 1px solid #334155;
             text-align: center;
-            transition: transform 0.2s ease;
+            transition: transform 0.2s ease, border-color 0.2s ease;
         }
         div[data-testid="metric-container"]:hover {
-            transform: translateY(-2px);
-            border-color: #93C5FD;
+            transform: translateY(-4px);
+            border-color: #3b82f6;
         }
         
         div[data-testid="stMetricValue"] {
-            font-size: 2.2rem !important;
-            font-weight: 700 !important;
-            color: #2563EB;
+            font-size: 2.5rem !important;
+            font-weight: 800 !important;
+            color: #ffffff;
         }
         
         div[data-testid="stMetricLabel"] {
-            font-size: 1rem !important;
-            color: #64748B !important;
+            font-size: 0.95rem !important;
+            color: #94a3b8 !important;
             font-weight: 600 !important;
             text-transform: uppercase;
             letter-spacing: 0.05em;
@@ -108,20 +87,66 @@ def main():
         /* Prettify DataFrame default rendering */
         div[data-testid="stDataFrame"] > div {
             border-radius: 12px !important;
-            border: 1px solid #E2E8F0 !important;
-            overflow: hidden !important;
+            border: 1px solid #334155 !important;
+            background-color: #1e293b !important;
+            color: #f8fafc !important;
+        }
+
+        /* Set text colors */
+        h1, h2, h3, h4, p, span, label {
+            color: #f8fafc !important;
         }
         
-        /* Sidebar styling additions */
-        section[data-testid="stSidebar"] {
-            background-color: #FFFFFF !important;
-            border-right: 1px solid #E2E8F0;
+        /* Primary Buttons */
+        .stButton > button {
+            background-color: #3b82f6 !important;
+            color: white !important;
+            border-radius: 8px !important;
+            border: none !important;
+            font-weight: 600 !important;
+            padding: 0.5rem 1rem !important;
+            transition: all 0.2s ease !important;
         }
+        .stButton > button:hover {
+            background-color: #2563eb !important;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4) !important;
+        }
+        
+        /* Download Button override */
+        .stDownloadButton > button {
+            background-color: #3b82f6 !important;
+            color: white !important;
+            border-radius: 8px !important;
+            border: none !important;
+            font-weight: 600 !important;
+            transition: all 0.2s ease !important;
+        }
+        .stDownloadButton > button:hover {
+            background-color: #2563eb !important;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4) !important;
+        }
+        
+        /* Image containers */
+        [data-testid="stImage"] {
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid #334155;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+        }
+        
         </style>
     """, unsafe_allow_html=True)
     
-    st.markdown("<h1 class='main-title'>Gender & Age Detection AI</h1>", unsafe_allow_html=True)
-    st.markdown("<p class='subtitle-text'>Real-time Computer Vision Analytics</p>", unsafe_allow_html=True)
+    # 3. HEADER SECTION
+    st.markdown("""
+        <div style='text-align: center; padding-top: 1rem; padding-bottom: 2.5rem;'>
+            <h1 style='font-size: 3.5rem; font-weight: 800; margin-bottom: 0.2rem; color: #ffffff !important;'>Gender & Age Detection AI</h1>
+            <p style='font-size: 1.25rem; font-weight: 500; color: #94a3b8 !important; margin-top: 0;'>
+                Real-Time Computer Vision Analytics Platform 
+                <span style='background-color: #3b82f6; color: white; padding: 0.2rem 0.8rem; border-radius: 99px; font-size: 0.85rem; font-weight: 700; margin-left: 12px; vertical-align: middle;'>v1.0 Cloud</span>
+            </p>
+        </div>
+    """, unsafe_allow_html=True)
     
     # Load Models setup
     try:
@@ -130,7 +155,7 @@ def main():
         st.error(f"Error loading models: {e}")
         return
 
-    # Initial paths and folders (9. SAFETY)
+    # Initial paths and folders (SAFETY)
     os.makedirs("logs", exist_ok=True)
     os.makedirs("outputs", exist_ok=True)
     csv_file = os.path.join("logs", "predictions.csv")
@@ -139,7 +164,7 @@ def main():
     if not os.path.exists(csv_file):
         clear_logs()
 
-    # 2. SIDEBAR CONTROLS
+    # 4. SIDEBAR CONTROLS
     with st.sidebar:
         st.header("⚙️ Dashboard Controls")
         
@@ -162,24 +187,24 @@ def main():
                 file_bytes = np.asarray(bytearray(camera_image.read()), dtype=np.uint8)
                 frame = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
         
-        st.markdown("---")
+        st.markdown("<br>", unsafe_allow_html=True)
         st.subheader("Inference Settings")
         enable_alignment = st.checkbox("Enable Face Alignment (MediaPipe)", value=True)
         enable_smoothing = st.checkbox("Enable Temporal Smoothing", value=False)
         conf_threshold = st.slider("Face Conf. Threshold", min_value=0.5, max_value=1.0, value=0.7, step=0.05)
         
-        st.markdown("---")
-        st.subheader("ℹ️ Model Info")
+        st.markdown("<br>", unsafe_allow_html=True)
+        st.subheader("ℹ️ Model Architecture")
         st.markdown(f"""
-        <div style='background-color: #F8FAFC; padding: 15px; border-radius: 8px; font-size: 0.9em; color: #475569; margin-bottom: 15px; border: 1px solid #E2E8F0;'>
-            <b>Model:</b> Adience Caffe<br>
-            <b>Face Detector:</b> OpenCV DNN<br>
+        <div style='background-color: #1e293b; padding: 15px; border-radius: 8px; font-size: 0.9em; color: #cbd5e1; margin-bottom: 15px; border: 1px solid #334155;'>
+            <b>Models:</b> Adience Caffe<br>
+            <b>Detector:</b> Res10 SSD<br>
             <b>Alignment:</b> {'ON' if enable_alignment else 'OFF'}<br>
             <b>Smoothing:</b> {'ON' if enable_smoothing else 'OFF'}
         </div>
         """, unsafe_allow_html=True)
         
-        st.markdown("---")
+        st.markdown("<br>", unsafe_allow_html=True)
         st.subheader("Data Management")
         if st.button("🗑️ Clear Local Logs", use_container_width=True):
             clear_logs()
@@ -188,14 +213,10 @@ def main():
     # Read CSV logs safely 
     df_logs = pd.DataFrame()
     try:
-        # Explicitly define columns since previous data might be missing headers
         col_names = ["timestamp", "gender", "gender_conf", "age_bucket", "age_conf"]
         df_temp = pd.read_csv(csv_file, header=None)
-        
-        # If the first row is the header string, skip it
         if not df_temp.empty and str(df_temp.iloc[0, 0]).startswith("timestamp"):
             df_temp = df_temp.iloc[1:].reset_index(drop=True)
-            
         df_temp.columns = col_names
         df_logs = df_temp
     except Exception:
@@ -207,8 +228,7 @@ def main():
     fps_val = 0.0
     
     if frame is not None:
-        # 7. LOADING SPINNER
-        with st.spinner("Running inference..."):
+        with st.spinner("Running deep learning inference..."):
             inference_start = time.time()
             
             # Run Face detection with variable threshold
@@ -274,8 +294,7 @@ def main():
             except Exception:
                 pass
 
-    # 3. TOP METRIC CARDS
-    st.markdown("### 📈 Live Telemetry")
+    # 5. KPI METRICS ROW (TOP)
     m1, m2, m3, m4 = st.columns(4)
     
     total_faces = len(df_logs) if not df_logs.empty else 0
@@ -293,20 +312,17 @@ def main():
     m3.metric("Average Latency", latency_str)
     
     fps_str = "N/A"
-    if frame is not None:
-        # User defined: FPS (if webcam active, else show N/A)
-        # Note: streamlit camera_input executes per picture, so "webcam active" is true if they just took a pic
-        if is_live_camera:
-            fps_str = f"{fps_val:.1f}"
+    if frame is not None and is_live_camera:
+        fps_str = f"{fps_val:.1f}"
     m4.metric("FPS (Backend)", fps_str)
     
-    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown("<br><br>", unsafe_allow_html=True)
     
-    # 4. MAIN LAYOUT (TOP ROW)
-    col1, col2 = st.columns([1.5, 1])
+    # 6. MAIN CONTENT SPLIT (LEFT: IMAGE, RIGHT: LOGS & CHARTS)
+    col_img, col_data = st.columns([1.2, 1])
     
-    with col1:
-        st.markdown("### 📷 Detection Result")
+    with col_img:
+        st.markdown("### 📷 Computer Vision Result")
         
         if frame is not None:
             st.image(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB), channels="RGB", use_container_width=True)
@@ -316,42 +332,38 @@ def main():
             else:
                 st.warning("⚠️ No face detected in the image")
         else:
-            st.info("👈 Please select an image source from the sidebar to begin.")
+            st.info("👈 Please select an image source from the sidebar to begin inference.")
 
-    with col2:
-        st.markdown("### � Recent Activity Logs")
-        
-        # Recent logs table
+    with col_data:
+        st.markdown("### 📋 Recent Activity")
         if df_logs is not None and not df_logs.empty:
-            st.dataframe(df_logs.tail(20).iloc[::-1], use_container_width=True, hide_index=True)
+            st.dataframe(df_logs.tail(10).iloc[::-1], use_container_width=True, hide_index=True)
         else:
             st.info("No records in the database.")
             
-    st.markdown("---")
-    st.markdown("### 📊 Live Demographics")
-    
-    # 5. CHARTS LAYOUT (BOTTOM ROW)
-    chart_col1, chart_col2 = st.columns(2)
-    
-    with chart_col1:
-        st.markdown("**Gender Distribution**")
-        if df_logs is not None and not df_logs.empty and 'gender' in df_logs.columns:
-            gender_counts = df_logs['gender'].value_counts()
-            st.bar_chart(gender_counts, use_container_width=True)
-        else:
-            st.info("Awaiting enough data for Gender chart.")
-            
-    with chart_col2:
-        st.markdown("**Age Demographics**")
-        if df_logs is not None and not df_logs.empty and 'age_bucket' in df_logs.columns:
-            age_counts = df_logs['age_bucket'].value_counts()
-            st.bar_chart(age_counts, use_container_width=True)
-        else:
-            st.info("Awaiting enough data for Age chart.")
+        st.markdown("<br>", unsafe_allow_html=True)
+        st.markdown("### 📊 Demographics")
+        
+        chart_col1, chart_col2 = st.columns(2)
+        with chart_col1:
+            st.markdown("<p style='font-size: 0.9em; font-weight: 600; color: #94a3b8 !important;'>GENDER DISTRIBUTION</p>", unsafe_allow_html=True)
+            if df_logs is not None and not df_logs.empty and 'gender' in df_logs.columns:
+                gender_counts = df_logs['gender'].value_counts()
+                st.bar_chart(gender_counts, use_container_width=True)
+            else:
+                st.caption("Awaiting data...")
+                
+        with chart_col2:
+            st.markdown("<p style='font-size: 0.9em; font-weight: 600; color: #94a3b8 !important;'>AGE DEMOGRAPHICS</p>", unsafe_allow_html=True)
+            if df_logs is not None and not df_logs.empty and 'age_bucket' in df_logs.columns:
+                age_counts = df_logs['age_bucket'].value_counts()
+                st.bar_chart(age_counts, use_container_width=True)
+            else:
+                st.caption("Awaiting data...")
 
-    # 6. DOWNLOAD BUTTONS
+    # 7. EXPORT DATA SIDEBAR
     with st.sidebar:
-        st.markdown("---")
+        st.markdown("<br>", unsafe_allow_html=True)
         st.subheader("📥 Export Data")
         
         # Download CSV
@@ -366,26 +378,12 @@ def main():
             )
         else:
             st.button("Download CSV Logs", disabled=True, use_container_width=True)
-            
-        # Download Image
-        if os.path.exists(last_output_image):
-            with open(last_output_image, "rb") as file:
-                img_bytes = file.read()
-            st.download_button(
-                label="Download Last Image",
-                data=img_bytes,
-                file_name=f"annotated_result_{datetime.now().strftime('%Y%m%d_%H%M%S')}.png",
-                mime="image/png",
-                use_container_width=True
-            )
-        else:
-            st.button("Download Last Image", disabled=True, use_container_width=True)
 
-    # 7. FOOTER
-    st.markdown("---")
+    # 8. FOOTER
+    st.markdown("<br><hr style='border-color: #334155;'>", unsafe_allow_html=True)
     st.markdown(
-        "<p style='text-align: center; color: #94A3B8; font-size: 0.85rem; margin-top: 2rem;'>"
-        "Built with OpenCV • MediaPipe • Streamlit • Caffe DNN"
+        "<p style='text-align: center; color: #64748b; font-size: 0.85rem; margin-top: 1rem;'>"
+        "Built with OpenCV • MediaPipe • Streamlit • Python 3.11"
         "</p>", 
         unsafe_allow_html=True
     )
