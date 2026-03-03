@@ -28,8 +28,8 @@ This is a real-time computer vision system that detects faces and predicts gende
 - Pandas / NumPy
 
 AI Models Used:
-- OpenCV DNN SSD face detector (TensorFlow)
-- Caffe CNN models for age and gender prediction (Adience dataset)
+- Res10 SSD Face Detector (Caffe)
+- Age and Gender Prediction CNNs (Adience dataset / Caffe)
 - MediaPipe Face Mesh for facial alignment
 - Temporal smoothing using centroid tracking and majority voting
 
@@ -60,9 +60,24 @@ gender-age-detection/
 ```
 
 # ▶️ Run Locally
+
+## 1. User Interface Dashboard
 ```bash
 pip install -r requirements.txt
 streamlit run app.py
+```
+
+## 2. CLI Execution Modes
+You can also run the core Python engine headless locally. Processed images automatically save to the `outputs/` directory.
+```bash
+# Live Webcam Mode (Default)
+python src/main.py
+
+# Single Image Processing
+python src/main.py --image path/to/image.jpg
+
+# Batch Folder Processing
+python src/main.py --folder path/to/dataset/
 ```
 
 # ☁️ Deployment
